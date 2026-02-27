@@ -14,5 +14,5 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["fastapi", "run", "app/app.py", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "alembic upgrade head && fastapi run app/app.py --host 0.0.0.0 --port 8000"]
 
