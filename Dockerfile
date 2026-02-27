@@ -16,5 +16,3 @@ EXPOSE 8000
 
 CMD ["sh", "-c", "python -m alembic upgrade head 2>/dev/null || true && python -m uvicorn app.app:app --host 0.0.0.0 --port 8000"]
 
-CMD ["sh", "-c", "alembic upgrade head && fastapi run app/app.py --host 0.0.0.0 --port 8000"]
-
