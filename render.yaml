@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: social-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && alembic upgrade head
+    startCommand: fastapi run app/app.py --host 0.0.0.0 --port 8000
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.7
+      - key: DATABASE_HOSTNAME
+        fromDatabase:
+          name: social-api-db
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: social-api-db
+          property: port
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: social-api-db
+          property: dbname
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: social-api-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: social-api-db
+          property: password
+      - key: SECRET_KEY
+        sync: false
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "60"
+
+databases:
+  - name: social-api-db
+    databaseCluster: social-api-cluster
+    blueprintId: social-db-blueprint
