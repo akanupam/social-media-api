@@ -6,8 +6,9 @@ from psycopg2.extras import RealDictCursor
 import time
 from .config import settings
 
+db_port = settings.database_port if settings.database_port else "5432"
 
-SQLALCHEMY_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}'
+SQLALCHEMY_DATABASE_URL = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{db_port}/{settings.database_name}'
 
 engine  = create_engine(SQLALCHEMY_DATABASE_URL)
 
